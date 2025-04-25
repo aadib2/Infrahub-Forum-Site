@@ -1,0 +1,49 @@
+.input-form {
+    background-color: rgb(29, 27, 44);
+    padding: 10px;
+}
+
+.input-form input[type="text"],
+.input-form textarea {
+    width: 90%;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 1.1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border: 1.5px solid #938edb;
+    border-radius: 6px;
+    background: #f7f7fa;
+    color: #333;
+    transition: border 0.2s;
+}
+
+.input-form input[type="text"]:focus,
+.input-form textarea:focus {
+    border: 2px solid #6c63ff;
+    outline: none;
+}
+
+.input-form label {
+    font-size: 1.05rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #fff9f9;
+    margin-top: 12px;
+    display: block;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.updateButton input[type="submit"] {
+    background-color: #938edb;
+    color: white;
+    font-size: 1.2rem;
+     font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 15px;
+}
