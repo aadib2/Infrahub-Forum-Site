@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Post.css'
 
-const Post = ({title, like_count, timestamp}) => {
+const Post = ({title, topic, like_count, timestamp}) => {
     const [creationTime, setCreationTime] = useState('')
     
 
@@ -37,6 +37,7 @@ const Post = ({title, like_count, timestamp}) => {
             <div className="card">
                 <p> {creationTime} </p>
                 <h2> {title} </h2>
+                <h4> Topic Area: {topic} </h4>
                 <p> {like_count} upvotes </p>
             </div>
         </>

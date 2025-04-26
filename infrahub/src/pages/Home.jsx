@@ -113,6 +113,7 @@ function Home() {
                   <Link to={`/post-details/${post.id}`} key={post.id} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <Post 
                         title={post.title}  
+                        topic={post.topic}
                         like_count={post.like_count}
                         timestamp={post.created_at}
                     />

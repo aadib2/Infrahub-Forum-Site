@@ -12,10 +12,16 @@
     align-items: flex-start;
 }
 
-.card h2 {
+.card h2{
     margin: 8px 0 4px 0;
     font-size: 1.5rem;
     color: black;
+}
+
+.card h4 {
+    color: black;
+    margin: 8px 0 4px 0;
+    font-size: 1rem;
 }
 
 .card p {
