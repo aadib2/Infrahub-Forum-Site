@@ -1,15 +1,14 @@
-# Web Development Final Project - *Infrahub*
+# Web 102 Class Capstone Project - *Infrahub*
 
 Submitted by: **Aadi Bery**
 
-This web app: **is an open forum for anyone curious or interested about construction, architecture, transportation, engineering, etc... Users can create their own posts and even comment and like on others.**
+This web app: **is an open forum for anyone curious or interested about construction, architecture, transportation, engineering, sustainability, etc. Users can register for an account and log in to access the forum dashboard and site features. Logged in users can create, edit, delete, and like posts, as well as comment on posts. They can also filter posts through search, popularity, and date. I learned a lot through this project so enjoy!**
 
-Time spent: **9** hours spent in total
+## Created using React / Vite, and Supabase
 
 ## Required Features
 
 The following **required** functionality is completed:
-
 
 - [x] **Web app includes a create form that allows the user to create posts**
   - Form requires users to add a post title
@@ -45,7 +44,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 
-- [ ] Web app implements pseudo-authentication
+- [x] Web app implements pseudo-authentication
   - Users can only edit and delete posts or delete comments by entering the secret key, which is set by the user during post creation
   - **or** upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them
   - For both options, only the original user author of a post can update or delete it
@@ -63,30 +62,15 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] List anything else that you added to improve the site's functionality!
+- Implemented user-authentication using Supabase, with protected routes
+- Usernames associated with comments and posts can be seen
+- Improvements to comments tab through toggling view/hide
 
-## Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-<img src='/infrahub/DemoGIF.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ScreenToGif 
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-The limited time to complete essentially an entire web app that combined everything we've learned this semester
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2025] [Aadi Bery]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
