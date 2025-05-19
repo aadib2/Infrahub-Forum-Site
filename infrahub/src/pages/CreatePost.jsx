@@ -1,11 +1,32 @@
 import React from 'react'
 import {supabase} from '../client.js'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import './CreatePost.css'
 
 
 const CreatePost = () => {
-    const [post, setPost] = useState({title: "", topic: "", content: "", img_url:"", like_count: 0})
+    const [post, setPost] = useState({title: "", topic: "", content: "", img_url:"", like_count: 0, username: ""})
+
+    const [displayName, setDisplayName] = useState("");
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const { data, error } = await supabase.auth.getUser();
+            
+            if(data && data.user && data.user.user_metadata) {
+                console.log(data.user.user_metadata.display_name)
+                setDisplayName(data.user.user_metadata.display_name);
+
+            }
+
+            if(error) {
+                console.log(error.message);
+            }
+        }
+
+        getUserInfo();
+
+    }, [])
 
     // event handler to update and set the post state
     const handleChange = (event) => {
@@ -25,7 +46,7 @@ const CreatePost = () => {
        try {
         await supabase
             .from('Posts')
-            .insert({title: post.title, topic: post.topic, content: post.content, img_url: post.img_url})
+            .insert({title: post.title, topic: post.topic, content: post.content, img_url: post.img_url, username: displayName})
             .select();
 
        } catch(error) {
@@ -33,7 +54,7 @@ const CreatePost = () => {
             return;
        }       
        console.log('Data inserted successfully')
-       window.location = '/'; // redirect to home page
+       window.location = '/dashboard'; // redirect to home page
     }
 
     // potential method to validate img urls

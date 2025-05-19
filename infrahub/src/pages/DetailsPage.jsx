@@ -4,15 +4,21 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
 
+import DeleteModal from '../components/DeleteModal'
+
 
 const DetailsPage = () => {
     const {id} = useParams();
+    const [isVisible, setIsVisible] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const [post, setPost] = useState({id: null, created_at: null, title: "", topic: "", content: "", img_url: "", like_count: ""})
     const [creationTime, setCreationTime] = useState('');
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    // fetch the post with the given id
+
+    const [displayName, setDisplayName] = useState("");
+    
     
     const getTimeAgo = () => {
             const postDate = new Date(post.created_at);
@@ -50,12 +56,30 @@ const DetailsPage = () => {
 
             const fetchComments = async () => {
                 const { data, error } = await supabase
-                .from('Comments')
-                .select()
-                .eq('post_id', id)
-                .order('created_at', { ascending: true });
-                if (!error) setComments(data);
-            };    
+                    .from('Comments')
+                    .select()
+                    .eq('post_id', id)
+                    .order('created_at', { ascending: true });
+                if (!error) 
+                    setComments(data);
+            };
+
+            const getUserInfo = async () => {
+                const { data, error } = await supabase.auth.getUser();
+                
+                if(data && data.user && data.user.user_metadata) {
+                    console.log(data.user.user_metadata.display_name)
+                    setDisplayName(data.user.user_metadata.display_name);
+    
+                }
+    
+                if(error) {
+                    console.log(error.message);
+                }
+            }
+    
+            getUserInfo();
+    
             fetchPost();
             setCreationTime(getTimeAgo());
             if (id) fetchComments();
@@ -75,77 +99,74 @@ const DetailsPage = () => {
         }));
     }
 
-    const deletePost = async (event) => {
-        event.preventDefault();
-
-        try {
-            await supabase
-                .from('Posts')
-                .delete()
-                .eq('id', id)
-        } catch(error) {
-            console.log(error);
-            return;
-        }
-        console.log("Post deleted successfully")
-        window.location = '/';
-    }
-
-    const createComment = async (e) => {
-            e.preventDefault();
+    const createComment = async (event) => {
+            event.preventDefault();
             if (!newComment.trim()) return;
             const { data, error } = await supabase
                 .from('Comments')
-                .insert([{ post_id: id, content: newComment }]);
+                .insert([{ post_id: id, content: newComment, user_id: displayName}]);
             
             setNewComment("");
+            window.location = `/dashboard/post-details/${id}`
     }
-    
-    
 
+    const toggleVisibility = () => {
+        setIsVisible(!isVisible);
+    }
 
+    
     return (
+        <>
         <div className="details-container">
             <div className="details-header">
-                <p className="timestamp"> {post.created_at ? getTimeAgo() : ""} </p>
+                <p className="timestamp"> {post.created_at ? `${getTimeAgo()} by ${post.username}` : ""} </p>
                 <div className="icons">
-                    <Link to={`/edit/${id}`} key={id}> ✏️ </Link>
-                    <button className="delete-button" onClick={deletePost}> 🗑️ </button>
+                    <Link to={`/dashboard/edit/${id}`} key={id}> ✏️ </Link>
+                    {/* create a popup for the delete button */}
+                    <button className="delete-button" onClick={() => setShowModal(true)}> 🗑️ </button>
+                     {showModal && <DeleteModal postid={id} onClose={()=> setShowModal(false)} />}
                 </div>
             </div>
+
             <h2> {post.title} </h2>
             <h2> Topic Area: {post.topic} </h2>
             <p> {post.content} </p>
             {post.img_url === "" ?  <p> No Image Provided</p>: (<img src={post.img_url} alt="post-image"/>)}
-            <button className="like-button" onClick={updateLikeCount}> ❤️ {post.like_count} upvotes </button>
+
+            <div className="button-container">
+                <button className="like-button" onClick={updateLikeCount}> ❤️ {post.like_count} upvotes </button>
+                <button className="comments-button" onClick={toggleVisibility}> 💬 </button>
+            </div>
+
             
-            
+            {isVisible && 
             <div className="comments-container">
                 <h3> Comments: </h3>
-                {/* display the current comments*/}
+                <div className="comments-list">
                 {comments.length === 0 && <p>No comments yet.</p>}
-                <ul>
-                    {comments.map(comment => (
-                <li key={comment.id}>
-                    <span>{comment.content}</span>
-                    <span style={{ color: "#888", marginLeft: 8, fontSize: "0.9em" }}>
-                        {new Date(comment.created_at).toLocaleString()}
-                    </span>
-                 </li>
+                {comments.map(comment => (
+                    <div className="comment-card" key={comment.post_id}>
+                        <span>{comment.content}</span>
+                        <span className="comment-date">
+                            {new Date(comment.created_at).toLocaleString()} {comment.user_id ? `(${comment.user_id})` : ""}
+                        </span>
+                    </div>
                 ))}
-                </ul>
+                </div>
 
                 {/* have the input form at the end */}
-                <form>
+                <form className="comment-form">
                     <input type="text" value={newComment} onChange={e => setNewComment(e.target.value)} 
                     placeholder="Add a comment..."
                     />
 
-                    <button type="submit" onClick={createComment}> Post </button>
+                    <button type="submit" className="post-comment-button" onClick={createComment}> Post </button>
 
                 </form>
-            </div>
+            </div> }
         </div>
+    
+    </>
 
     )
 }

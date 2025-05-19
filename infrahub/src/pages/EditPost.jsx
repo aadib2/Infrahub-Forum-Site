@@ -50,7 +50,7 @@ const EditPost = () => {
             return;
         }       
         console.log('Data updated successfully')
-        window.location = '/'; // redirect to home page
+        window.location = '/dashboard'; // redirect to home page
     }
 
     return (

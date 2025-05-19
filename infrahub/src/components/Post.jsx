@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
+import { supabase } from '../client'
 import './Post.css'
 
-const Post = ({title, topic, like_count, timestamp}) => {
+const Post = ({title, topic, like_count, timestamp, username}) => {
     const [creationTime, setCreationTime] = useState('')
+
+    
     
 
     useEffect(() => {
@@ -23,19 +26,15 @@ const Post = ({title, topic, like_count, timestamp}) => {
             const daysAgo = Math.floor(hoursAgo / 24);
             return `${daysAgo} days ago`;
         }
-        console.log(getTimeAgo());
         setCreationTime(getTimeAgo());
+
     }, []);
 
-    // possibly add a useEffect to get timeago and set creation time?
     
-
-
-
     return (
         <>
             <div className="card">
-                <p> {creationTime} </p>
+                <p> {creationTime} by {username} </p>
                 <h2> {title} </h2>
                 <h4> Topic Area: {topic} </h4>
                 <p> {like_count} upvotes </p>

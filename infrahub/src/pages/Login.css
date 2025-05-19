@@ -1,0 +1,67 @@
+.auth-container {
+    background: rgb(29, 27, 44);;
+    border-radius: 18px;
+    max-width: 400px;
+    margin: 40px auto 20px auto;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.credentials-form {
+    width: 100%;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.credentials-form input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 1.1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border: 1.5px solid #938edb;
+    border-radius: 6px;
+    background: #f7f7fa;
+    color: #333;
+    transition: border 0.2s;
+}
+
+.credentials-form input:focus {
+    border: 2px solid #6c63ff;
+    outline: none;
+}
+
+.auth-button {
+    background-color: #938edb;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.auth-button:hover {
+    background-color: #6c63ff;
+}
+
+.auth-message {
+    margin-top: 16px;
+    color: #e74c3c;
+    font-size: 1rem;
+    text-align: center;
+}
+
