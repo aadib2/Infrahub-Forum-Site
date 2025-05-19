@@ -5,6 +5,7 @@ import './Home.css'
 
 function Home() {
     return (
+        <div className = "background">
             <div className="landing-container">
                 <div className="landing-content">
                     <h1 className="landing-title">🏗️ Welcome to InfraHub</h1>
@@ -21,6 +22,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
 
