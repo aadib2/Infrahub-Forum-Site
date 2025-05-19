@@ -2,7 +2,7 @@
 [build]
   base = "infrahub"
   command = "npm run build"
-  publish = "infrahub/dist"
+  publish = "dist"
 
 [dev]
   command = "npm run dev"
