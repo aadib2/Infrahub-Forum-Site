@@ -18,6 +18,7 @@ const DetailsPage = () => {
     const [newComment, setNewComment] = useState("");
 
     const [displayName, setDisplayName] = useState("");
+    const [userID, setUserID] = useState("");
     
     
     const getTimeAgo = () => {
@@ -70,6 +71,7 @@ const DetailsPage = () => {
                 if(data && data.user && data.user.user_metadata) {
                     console.log(data.user.user_metadata.display_name)
                     setDisplayName(data.user.user_metadata.display_name);
+                    setUserID(data.user.id);
     
                 }
     
@@ -104,7 +106,7 @@ const DetailsPage = () => {
             if (!newComment.trim()) return;
             const { data, error } = await supabase
                 .from('Comments')
-                .insert([{ post_id: id, content: newComment, user_id: displayName}]);
+                .insert([{ post_id: id, content: newComment, username: displayName, user_id: userID}]);
             
             setNewComment("");
             window.location = `/dashboard/post-details/${id}`

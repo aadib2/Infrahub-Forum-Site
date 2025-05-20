@@ -8,15 +8,17 @@ const CreatePost = () => {
     const [post, setPost] = useState({title: "", topic: "", content: "", img_url:"", like_count: 0, username: ""})
 
     const [displayName, setDisplayName] = useState("");
+    const [userID, setUserID] = useState("");
 
     useEffect(() => {
         const getUserInfo = async () => {
             const { data, error } = await supabase.auth.getUser();
             
             if(data && data.user && data.user.user_metadata) {
-                console.log(data.user.user_metadata.display_name)
+                console.log(data.user.user_metadata.display_name);
+                console.log(data.user.id);
                 setDisplayName(data.user.user_metadata.display_name);
-
+                setUserID(data.user.id);
             }
 
             if(error) {
@@ -46,7 +48,7 @@ const CreatePost = () => {
        try {
         await supabase
             .from('Posts')
-            .insert({title: post.title, topic: post.topic, content: post.content, img_url: post.img_url, username: displayName})
+            .insert({title: post.title, topic: post.topic, content: post.content, img_url: post.img_url, username: displayName, user_id: userID})
             .select();
 
        } catch(error) {
