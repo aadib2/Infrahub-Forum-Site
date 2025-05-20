@@ -150,7 +150,7 @@ const DetailsPage = () => {
                     <div className="comment-card" key={comment.post_id}>
                         <span>{comment.content}</span>
                         <span className="comment-date">
-                            {new Date(comment.created_at).toLocaleString()} {comment.user_id ? `(${comment.user_id})` : ""}
+                            {new Date(comment.created_at).toLocaleString()} {comment.username ? `(${comment.username})` : ""}
                         </span>
                     </div>
                 ))}
